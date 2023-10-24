@@ -15,12 +15,7 @@ use \App\Http\Controllers\InoperanciaController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
-// Equipamento
+// Principal
 
 Route::get('/getEquipamento', [EquipamentoController::class,'getEquipamento']);
 Route::get('/getOneEquipamento/{id}', [EquipamentoController::class, 'getOneEquipamento']);
@@ -34,8 +29,4 @@ Route::get('/getOneEmpresaManutencao', [EmpresaController::class,'getOneEmpresaM
 Route::post('/insertEmpresaManutencao', [EmpresaController::class,'insertEmpresaManutencao']);
 Route::post('/updatetEmpresaManutencao', [EmpresaController::class,'updatetEmpresaManutencao']);
 
-// Inoperancia
-
-Route::get('/getInoperancia', [InoperanciaController::class,'getInoperancia']);
-Route::get('/getOneInoperancia/{id}', [InoperanciaController::class,'getOneInoperancia']);
 
