@@ -18,7 +18,10 @@ class MensagensController extends Controller
     public function getMensagens(){
 
     $result =  DAOmensagens::mensagens();
-    return($result[0]->id > 0 ? Util::jsonResultTrue($result) : Util::jsonResultFalse());
+
+    $msg = '';
+
+    return($result[0]->id > 0 ? Util::jsonResultTrue($msg, $result) : Util::jsonResultFalse());
 
     }
 

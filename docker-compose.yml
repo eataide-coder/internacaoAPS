@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+
+  internacaoaps:
+    build: ./
+    image: internacaoaps
+    container_name: internacaoaps
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "9031:8000"
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html
+    command: php -S 0.0.0.0:8000 -t /var/www/html/public
+    networks:
+      - smsrio
+    mem_limit: 2G
+    cpus: 2
+
+# Redes
+networks:
+  smsrio:
+    driver: bridge
+    external: true
