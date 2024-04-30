@@ -56,4 +56,8 @@ class DAOmensagens extends Model
         
         return DB::table('tb_aps')->where('id', $id_aps)->get();
     }
+    public function aps(): BelongsTo{
+
+        return $this->belongsTo(DAOaps::class, 'id_aps', 'id');
+    }
 }

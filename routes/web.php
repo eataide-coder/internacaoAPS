@@ -12,4 +12,6 @@ Route::get('/', function () {
 Route::get('/mensagens', [MensagensController::class, 'getMensagens']);
 Route::get('/listar_aps', [ApsController::class, 'listar_aps']);
 
+Route::get('/getDadosId', [ApsController::class, 'getDadosId']);
+
 // Route::post('/insertMensagens/', [MensagensController::class, 'insertMensagens']);

@@ -6,6 +6,7 @@ require_once "Util.php";
 
 use App\Controller\Util;
 use App\Models\DAOaps;
+use App\Models\DAOanexos;
 use Illuminate\Http\Request;
 
 define('cnesComplexoRegulador', 7106513);
@@ -35,6 +36,15 @@ class ApsController extends Controller
                 $result = DAOaps::getDadosCap($cap); // CAP
             }
         }
+
+        return Util::jsonResultTrue($msg, $result);
+    }
+
+    public function getDadosId(Request $request){
+
+        $id_aps = $request['id_aps'];
+        $result = DAOaps::getDadosId($id_aps)->with('anexos', 'mensagens')->get();
+        $msg = '';
 
         return Util::jsonResultTrue($msg, $result);
     }
