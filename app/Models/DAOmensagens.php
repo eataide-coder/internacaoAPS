@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class DAOmensagens extends Model
 {
@@ -56,7 +57,7 @@ class DAOmensagens extends Model
         
         return DB::table('tb_aps')->where('id', $id_aps)->get();
     }
-    public function aps(): BelongsTo{
+    public function aps(): BelongsTo {
 
         return $this->belongsTo(DAOaps::class, 'id_aps', 'id');
     }

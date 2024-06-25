@@ -53,8 +53,7 @@ class MensagensController extends Controller
 
         DAOmensagens::updateStatus($id_aps, $status_id);
         DAOmensagens::insertMensagens($request);
-        
-
+    
         return Util::jsonInsertTrue($result);
         
         }

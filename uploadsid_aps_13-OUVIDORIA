@@ -1,0 +1,65 @@
+#########################################################################
+
+-- MINHASAUDE.RIO -> PORTAL PACIENTE:
+
+select * from tb_usuario limit 10;
+select * from tb_usuario where idPaciente = '2107969';
+select * from tb_usuario where cpf = '02442673754';
+select * from tb_usuario where email = 'iolandacassiano@gmail.com';
+select * from tb_usuario where email like '%sol%';
+
+-- PLATAFORMA SUBPAV:
+
+select * from sms_pacientes.tb_pacientes where cns = '898004131724121';
+select * from sms_pacientes.tb_pacientes where cpf = '02442673754';
+select * from sms_pacientes.tb_pacientes where nome  = 'ANA LUCIA Meirelles Saraiva de Oliveira';
+select * from sms_pacientes.tb_pacientes where nome  like 'ARTHUR DA SILVA MIRANDA';
+
+select * from sms_pacientes.tb_cns_provisorios where cns_provisorio ='898004131724121';
+
+REDEFINIÇÃO DE SENHAS:
+
+select * from portal_paciente.tb_recuperacao_senha where cpf = '98054635753' 
+-- passar o token junto com o 
+link-> https://web2.smsrio.org/portalPaciente/server/controller/trocarSenha.php?token=
+
+123456Ab
+9d3aa98720813362b99c5626db91186c
+
+
+#########################################################################
+
+Olá Prezado(a),  bom dia!
+
+Verifique as seguintes observações: Não utilize acentuação nos nomes (por exemplo, ao invés de ANGÉLICA coloque ANGELICA)Verifique se não há espaços a mais, seja no meio de nomes ou final. O campo data de nascimento deve ser preenchido no formato 04/04/1982 (por exemplo).
+Caso persista a dificuldade, se houver a possibilidade, tente realizar o cadastro/acesso em um outro dispositivo como um computador/notebook para certificar que a dificuldade não está no dispositivo em questão (seja lá qual for).
+Caso ainda persista o erro mesmo após as devidas orientações, siga as orientações presentes na mensagem de erro.
+
+atenciosamente,
+
+
+#########################################################################
+
+Boa tarde!
+
+Desde o incidente com o Ministério da Saúde, o mesmo procedeu com a desativação momentaneamente dos sistemas que fornecem informações do SISREG e outros, para verificar suas integrações e trabalhar na segurança destes serviços.
+
+Neste momento, por conta deste fator, não conseguimos disponibilizar os dados.
+Estamos aguardando o retorno por parte do Ministério da Saúde com os sistemas em funcionamento para procedermos com o reabastecimento das informações e retorno da normalidade.
+
+Atenciosamente,
+
+
+#########################################################################
+
+Por favor procure sua unidade de atenção primária de referência e atualize a informação. Você pode encontrar sua unidade através do Onde Ser Atendido, no endereço https://smsrio.org/osa. Para outras dificuldades ou problemas técnicos, favor entrar em contato com o suporte pelo e-mail suporte.smsrio@gmail.com.
+
+Para saber da sua solicitação de consulta, exame ou número do SISREG, faça seu cadastro no portal minhasaude.rio ou procure sua unidade de atenção primária de referência para entender o que pode ter ocorrido. Você pode consultar sua unidade indicando o seu endereço em: smsrio.org/osa
+
+
+https://web2.smsrio.org/portalPaciente/cadastro/#/
+
+https://web2.smsrio.org/portalPaciente/login/#/
+
+
+padm 6, 7 8

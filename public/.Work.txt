@@ -1,0 +1,417 @@
+###########################################################################################################
+
+  MODO SEGURO PARA USAR O POST SEM MYSQL INJECTION:
+
+      $sql = "SELECT * FROM visitas_csa.tb_anexos WHERE id = ?";
+         $id = $_POST['id'];
+            $stmt = $this->prepare($sql);
+                $stmt->bind_param('s', $id);
+                        $stmt->execute();
+                             $result = $stmt->get_result();
+                                    $dados = $result->fetch_all();
+
+            return (count($dados) > 0) ? $this->sucesso($dados) :$this->falha();
+
+###########################################################################################################
+
+1.      Nome completo -> Eduardo Ataide dos Santos
+2.      Matrícula -> 4.045.721-8
+3.      Cargo -> ANALISTA DE PROGRAMACAO
+4.      Unidade em que trabalhou -> Complexo Regulador do Município do Rio de Janeiro
+5.      Data da sua demissão -> 31/05/2021
+6.      Telefone -> (21) 97122-2214
+
+##########################################################################################################
+
+
+FUNÇÃO PARA INSERIR DADOS NA TABELA:
+
+* Formato de entrada dos dados em JSON;
+
+// INSERIR
+
+public function inserir($tabela){
+        
+        $this->begin_transaction();
+        $this->autocommit(false);
+
+        $dados = "";
+        $campos = "";
+        $values = "";
+
+        $request_body = file_get_contents('php://input');
+
+        $dados = json_decode($request_body);
+
+        foreach($dados as $key => $value){
+
+            // $value = (is_object($value))?(array) $value:$value;
+            $campos .= $key . ",";
+            $values .= '"' . $value . '",';
+            
+        }
+
+        $campos = substr($campos, 0, strlen($campos) - 1);
+        $values = substr($values, 0, strlen($values) - 1);
+
+        $sql =  ("INSERT INTO $tabela ($campos) VALUES ($values)");
+
+        $query = $this->query($sql) or die($this->error);
+
+        if($query){
+
+            $this->commit();
+
+            echo "Cadastrado com sucesso!";
+        }
+
+    }
+
+###########################################################################################################
+
+Quando migrar a aplicação, a pasta tem que estar com chown smsrio:smsrio
+
+SELECT *, 
+DATEDIFF(dataHora, Dt_Solicitacao) AS espera
+FROM `tb_aguardando_vaga`
+
+UPDATE tb_aguardando_vaga SET tempoEspera = IF(DATEDIFF(dataHora, Dt_Solicitacao) > 0,1,0);
+
+UPDATE ser.tb_aguardando_vaga SET categoriaLeito = 'ENFERMARIA' WHERE Tipo_Leito = 'Coronavírus - Enfermaria Adulto'
+
+UPDATE ser.tb_aguardando_vaga SET dataHora = '2021-03-29 12:40:00'
+
+INSERT INTO tb_aguardando_vaga(tempoEspera)
+
+
+where informação MRJ  = Rio de janeiro
+
+join solicitante por unidade 
+
+
+     SELECT
+     COUNT(*)
+     FROM
+     ser.tb_aguardando_vaga AS S
+     INNER JOIN ser.tb_tipo_unidade AS T 
+           ON S.Solicitante = T.unidade;
+           GROUP BY T.municipio
+          WHERE T.Estado = 'Em Fila'
+
+
+SELECT Estado, COUNT(*) AS 'QTD' FROM ser.tb_aguardando_vaga WHERE ser.tb_aguardando_vaga.Estado = 'Em Fila'
+
+SELECT Estado, COUNT(*) AS 'QTD' FROM ser.tb_aguardando_vaga WHERE ser.tb_aguardando_vaga.Estado = 'Pendente'
+
+SELECT tempoEspera AS 'TEMPO DE ESPERA', COUNT(*) AS '(-24HRS)' FROM ser.tb_aguardando_vaga WHERE ser.tb_aguardando_vaga.tempoEspera = 0
+
+SELECT tempoEspera AS 'TEMPO DE ESPERA', COUNT(*) AS '(+24HRS)' FROM ser.tb_aguardando_vaga WHERE ser.tb_aguardando_vaga.tempoEspera = 1
+
+SELECT categoriaLeito AS 'CATEGORIA', COUNT(*) AS '(QTDE)' FROM ser.tb_aguardando_vaga WHERE ser.tb_aguardando_vaga.categoriaLeito = 'UTI_UI'
+
+SELECT categoriaLeito AS 'CATEGORIA', COUNT(*) AS '(QTDE)' FROM ser.tb_aguardando_vaga WHERE ser.tb_aguardando_vaga.categoriaLeito = 'ENFERMARIA'    
+
+
+###########################################################################################################
+
+public function Autenticar(){
+      try{
+        $retorno = array("status" => (boolean)false, "msg" => "Usuário ou senha incorretos.");
+        $db      = new banco();
+        $sql     = "SELECT * FROM portal_paciente.tb_usuario WHERE cpf = ? AND senha = ? LIMIT 1";
+
+        if($query = $db->prepare($sql)){
+          $cpf   = $this->getCpf();
+          $senha = md5($this->getSenha());
+          $query->bind_param('ss', $cpf, $senha);
+
+          if($query->execute()){
+            $resultado = $query->get_result();
+
+            if($resultado->num_rows > 0){
+              $dadosUsuario = $resultado->fetch_assoc();
+
+              if(!empty($dadosUsuario["id"])){
+                
+                if($dadosUsuario["ativo"] == 0)
+                  $retorno = array("status" => (boolean)false, "msg" => "Usuário inativo.");
+                else{
+                  if($dadosUsuario["confirmado"] == 0)
+                    $retorno = array("ativacao" => (boolean)true);
+                  else 
+                    $retorno = array("status" => (boolean)true, "dados" => $dadosUsuario);
+                }                  
+              }
+            }
+            $query->free_result();
+          }
+          $query->close();
+        }
+        $db->close();
+      }catch (mysqli_sql_exception $e) {
+        exit("Erro ao autenticar usuário: ".$e->getMessage());
+      }
+
+      return $retorno;
+    }
+
+    COD_ESFADM
+
+01 FEDERAL
+02 ESTADUAL
+03 MUNICIPAL
+04 PRIVADO
+
+01=federal, 02=estadual, 03=municipal, 04=privada
+
+{
+    "visita": { 
+        "data_solicitacao": "",
+        "tipo_doc_demanda": "3",
+        "profissional": "edu",
+        "numero_documento": "AB123456789",
+        "orgao_origem": "3",
+        "orgao_origem_outros": "",
+        "justificativa": "teste",
+        "cancelamento_outros": "",
+        "unidade": "",
+        "status": "",
+        "responsavel_solicitacao": "",
+        "id_agendamento":"235",
+        "motivo": "5",
+        "numero_relatorio":"",
+        "data_confirmacao":"",
+        "categoria_cancelamento": "1",
+        "id_paciente":""
+    },
+    "paciente_homecare": {
+                "nome": "teste",
+        "cpf":"123456"
+        "logradouro": "rua tal",
+        "numero": "22",
+        "complemento":"",
+        "bairro": "vila isabel",
+        "municipio": "",
+        "cep": "20510050",
+        "unidade_referencia":"",
+        "unidade_referencia_nome": "",
+        "unidade_referencia_cap": "",
+        "unidade_referencia_cod_ub": ""
+        "id_visita":"",
+        "estado":"",
+        "ativo":""
+    }
+}
+
+  // if ($result) {
+
+    //     if ($motivo == 1) {
+
+    //         $id_visita = $this->insert_id;
+    //         $dados['paciente_homecare']->id_visita = $id_visita;
+    //         $dados['visita']->data_solicitacao = date("Y-m-d-G:i:s");
+
+    //         $sql = $this->insert((array) $dados['paciente_homecare'], "visitas_csa.tb_paciente_homecare");
+    //         $result = $this->query($sql) or die($this->error);
+
+    //         $sql = "SELECT VI.*, PC.* FROM
+    //                 visitas_csa.tb_solicitacao_visita as VI
+    //                 LEFT JOIN visitas_csa.tb_paciente_homecare as PC
+    //                 ON VI.id = PC.id_visita
+    //                 WHERE VI.id = " . $id_visita;
+
+    //         $query = $this->query($sql) or die($this->error);
+    //         $result = $query->fetch_assoc();
+
+    //         return (count($result) > 0) ? $this->sucesso($result) : $this->falha();
+
+    //     } else {
+
+    //         $id_visita = $this->insert_id;
+
+    //         $sql = "SELECT * FROM visitas_csa.tb_solicitacao_visita WHERE id = " . $id_visita;
+
+    //         $query = $this->query($sql) or die($this->error);
+    //         $result = $query->fetch_assoc();
+
+    //         return (count($result) > 0) ? $this->sucesso($result) : $this->falha();
+    //     }
+
+    // } else {
+
+    //     return (array("msg" => "Problema de coneão ou usuário não permitido", 'status' => false));
+    // }
+
+    SELECT
+  VI.*, AGENDA.*
+FROM
+  tb_solicitacao_visita AS VI
+LEFT JOIN(SELECT AGENDA.*, PROFISSIONAL.nome FROM tb_agendamento AS AGENDA
+LEFT JOIN tb_profissional_cac AS PROFISSIONAL
+ON AGENDA.profissional_cac = PROFISSIONAL.id) ON AGENDA.id_visita_tecnica = VI.id
+INNER JOIN tb_agendamento AS AGENDA ON VI.id = AGENDA.id_visita_tecnica
+
+SELECT teste.*, tb_solicitacao_visita.*
+FROM (SELECT AGENDA.*, PROFISSIONAL.nome FROM tb_agendamento AS AGENDA
+LEFT JOIN tb_profissional_cac AS PROFISSIONAL
+ON AGENDA.profissional_cac = PROFISSIONAL.id) AS teste
+LEFT JOIN tb_solicitacao_visita
+ON teste.id_visita_tecnica = tb_solicitacao_visita.id
+-- WHERE teste.profissional_cac = 25 
+
+-- WHERE teste.id_visita_tecnica = 158
+-- LEFT JOIN tb_solicitacao_visita.id = teste.id_visita_tecnica
+
+
+SELECT
+tb_agendamento.id,
+tb_agendamento.data_insercao_agendamento,
+tb_agendamento.profissional_agendou,
+tb_agendamento.data_agendamento,
+tb_agendamento.id_visita_tecnica,
+tb_agendamento.profissional_auditor,
+tb_agendamento.reagendado,
+tb_agendamento.justificativa_reagendamento,
+tb_agendamento.data_reagendamento,
+tb_agendamento.categoria_reagendamento,
+tb_agendamento.ativo,
+tb_solicitacao_visita.id,
+tb_solicitacao_visita.data_solicitacao,
+tb_solicitacao_visita.tipo_doc_demanda,
+tb_solicitacao_visita.profissional,
+tb_solicitacao_visita.numero_documento,
+tb_solicitacao_visita.orgao_origem,
+tb_solicitacao_visita.orgao_origem_outros,
+tb_solicitacao_visita.justificativa,
+tb_solicitacao_visita.justificativa_cancelamento,
+tb_solicitacao_visita.unidade,
+tb_solicitacao_visita.`status`,
+tb_solicitacao_visita.responsavel_solicitacao,
+tb_solicitacao_visita.motivo,
+tb_solicitacao_visita.numero_relatorio,
+tb_solicitacao_visita.data_confirmacao,
+tb_solicitacao_visita.categoria_cancelamento,
+tb_solicitacao_visita.competencia,
+tb_solicitacao_visita.profissional_confirmacao,
+tb_solicitacao_visita.data_cancelamento,
+tb_solicitacao_visita.profissional_cancelamento,
+tb_solicitacao_visita.ativo,
+tb_agendamento_profissional.id_profissional,
+tb_agendamento_profissional.id_agendamento,
+tb_agendamento_profissional.ativo,
+tb_profissional_cac.nome,
+tb_profissional_cac.cpf
+FROM
+tb_solicitacao_visita
+INNER JOIN tb_agendamento ON tb_solicitacao_visita.id = tb_agendamento.id_visita_tecnica
+INNER JOIN tb_agendamento_profissional ON tb_agendamento.id = tb_agendamento_profissional.id_agendamento AND tb_agendamento_profissional.ativo = 1
+INNER JOIN tb_profissional_cac ON tb_profissional_cac.id = tb_agendamento_profissional.id_profissional
+WHERE tb_profissional_cac.cpf = 04546868707
+
+
+SELECT
+            tb_profissional_cac.nome,
+            tb_profissional_cac.id,
+                        tb_profissional_cac.cpf
+            FROM
+            tb_agendamento
+            INNER JOIN tb_agendamento_profissional ON tb_agendamento.id = tb_agendamento_profissional.id_agendamento
+            INNER JOIN tb_profissional_cac ON tb_profissional_cac.id = tb_agendamento_profissional.id_profissional AND tb_agendamento_profissional.ativo = 1
+            AND tb_agendamento_profissional.id_profissional > 0
+            AND tb_profissional_cac.ativo = 1
+            LEFT JOIN tb_solicitacao_visita ON tb_solicitacao_visita.id = tb_agendamento.id_visita_tecnica
+            WHERE tb_solicitacao_visita.id = 1 AND tb_profissional_cac.cpf IN (07415282744)
+            GROUP BY tb_profissional_cac.id
+
+
+
+
+
+
+
+$sql = "SELECT
+        tb_solicitacao_visita.*,
+        
+        tb_paciente_homecare.nome,
+        tb_paciente_homecare.cpf,
+        tb_paciente_homecare.logradouro,
+        tb_paciente_homecare.numero,
+        tb_paciente_homecare.complemento,
+        tb_paciente_homecare.bairro,
+        tb_paciente_homecare.municipio,
+        tb_paciente_homecare.cep,
+        tb_paciente_homecare.unidade_referencia,
+        tb_paciente_homecare.unidade_referencia_nome,
+        tb_paciente_homecare.unidade_referencia_cap,
+        tb_paciente_homecare.unidade_referencia_cod_ub,
+        tb_paciente_homecare.estado,
+        tb_paciente_homecare.ativo,
+        tb_agendamento.id AS id_agendamento,
+        tb_agendamento.data_insercao_agendamento,
+        tb_agendamento.profissional_agendou,
+        tb_agendamento.data_agendamento,
+        tb_agendamento.id_visita_tecnica,
+        tb_agendamento.profissional_auditor,
+        tb_agendamento.reagendado,
+        tb_agendamento.justificativa_reagendamento,
+        tb_agendamento.data_reagendamento,
+        tb_agendamento.categoria_reagendamento,
+        tb_agendamento.ativo,
+        tb_anexos.id AS id_anexo,
+        tb_anexos.anexos,
+        tb_anexos.date,
+        tb_anexos.id_visita,
+        tb_anexos.ultima_modificacao,
+        tb_anexos.modificado,
+        tb_anexos.profissional_modificou,
+        uni.NOME_FANTA
+    FROM
+    tb_solicitacao_visita
+    LEFT JOIN tb_paciente_homecare ON tb_paciente_homecare.id_visita = tb_solicitacao_visita.id
+    LEFT JOIN tb_agendamento ON tb_agendamento.id_visita_tecnica = tb_solicitacao_visita.id AND tb_agendamento.ativo = 1
+    LEFT JOIN tb_anexos ON tb_anexos.id_visita = tb_solicitacao_visita.id
+    LEFT JOIN subpav_principal.unidades as uni ON uni.COD_UB = tb_solicitacao_visita.unidade
+    WHERE tb_solicitacao_visita.status IN (0,1,2,3,6) AND tb_solicitacao_visita.ativo = 1
+    ORDER BY tb_solicitacao_visita.data_solicitacao ASC";
+
+        $query = $this->query($sql) or die($this->error);
+        $result = $query->fetch_all(MYSQLI_ASSOC);
+
+        for ($i = 0; $i < $result[$i]; $i++) {
+            $id_visita = ($result[$i]['id']);
+
+            $sql = "SELECT
+            tb_profissional_cac.nome,
+            tb_profissional_cac.id
+            FROM
+            tb_agendamento
+            INNER JOIN tb_agendamento_profissional ON tb_agendamento.id = tb_agendamento_profissional.id_agendamento
+            INNER JOIN tb_profissional_cac ON tb_profissional_cac.id = tb_agendamento_profissional.id_profissional AND tb_agendamento_profissional.ativo = 1
+            AND tb_agendamento_profissional.id_profissional > 0
+            AND tb_profissional_cac.ativo = 1
+            LEFT JOIN tb_solicitacao_visita ON tb_solicitacao_visita.id = tb_agendamento.id_visita_tecnica
+            WHERE tb_solicitacao_visita.id = ". $id_visita." 
+            GROUP BY tb_profissional_cac.id";
+
+            $query = $this->query($sql) or die($this->error);
+            $retorno = $query->fetch_all(MYSQLI_ASSOC);
+            $result[$i]{"agendados"} =  $retorno;
+        }
+
+
+        074.152.827-44 -> ALESSANDRA RANGEL SOARES -> 2 SOLICITAÇÕES
+
+
+        YC7DK-G2NP3-2QQC3-J6H88-GVGXT -> Office 2013 Key
+
+
+
+        for($i = 0; $i < count($dados); $i++){
+
+                $dados[$i]->disparador = $_SESSION['cpf'];
+                $data = Carbon::now()->format("Y-m-d H:i:s");
+                $dados[$i]->data_agendamento = $data;
+
+                $sql[$i] = $this->insert($dados[$i], "tb_agenda");
+                $query[$i] = $this->query($sql[$i]) or die($this->error());
+                $id_agenda[$i]= $this->insert_id;

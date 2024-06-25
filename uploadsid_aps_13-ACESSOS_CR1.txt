@@ -1,0 +1,124 @@
+************************************************* 
+
+==> (SERVIDOR DESENVOLVIMENTO ->192.168.0.131 ) 
+ 
+SSH e SFTP:
+
+User: root
+Senha: #*crDev@2022*#
+
+scp -P 22022 cnesLsitagemProfissionais.csv root@db.smsrio.org:/home/backup
+
+mysql: 
+
+User: root
+senha: cr#2021  
+
+User: dba 
+senha: devSMSRIObd2019# 
+ 
+Pasta Compartilhada: 
+
+User: developer 
+Senha: dev2017# 
+
+User: developer 
+Senha: dev@2020 
+
+************************************************* 
+
+=> (SERVIDOR SMSRIO.ORG) 
+
+
+(SSH/ROOT) 
+
+login: root 
+senha: iujo695635 
+  
+FTP/CPANEL: 
+
+subpav.org 
+
+login: subpav 
+senha: *#subp@v*# 
+
+smsrio.org 
+
+login: smsrio 
+senha: #crsubreg* 
+  
+smsrio.org/whm 
+
+login: root 
+senha: ##Centr4lReg#2017 
+  
+
+************************************************* 
+  
+=>(SERVIDOR WEB2.SMSRIO.ORG) 
+  
+
+(ssh) 
+
+login: root 
+senha: $/$m$Rio2017#ws
+  
+CPANEL 
+
+login: smsrio 
+senha: #smsri0$2017$web2  
+  
+
+(mysql) 
+
+login: root 
+senha: $/$ubger@L 
+  
+login: dba 
+senha: G3ral#16DB2 
+  
+shell 
+
+usuario: backup 
+senha: #$bkpSMSRIO# 
+  
+certificado(rest.smsrio.org) 
+senha: bratwurst 
+  
+FTP 
+
+sftp://web2.smsrio.org
+
+usuario: smsrio 
+senha: #smsri0$2017$web2 
+
+************************************************* 
+
+=>(SERVIDOR DB.SMSRIO.ORG -> 162.215.221.118) 
+ 
+
+(SSH/WHM) 
+
+login: root 
+senha: qf0h)C@*XJit  
+
+(mysql) 
+
+login: root 
+senha: #mysql#*root 
+  
+login: dba 
+senha: #**dbsmsrio$@ 
+
+login: prod_contas
+senha: #**contassmsrio$@
+  
+login: vigilancia 
+senha: Vigrj2016# 
+  
+***************************************************** 
+
+=> EMAIL SUPORTE
+
+LOGIN: suporte.smsrio@gmail.com
+SENHA: $ubreg/central18
